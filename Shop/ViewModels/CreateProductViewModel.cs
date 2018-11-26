@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
-namespace Shop.Models
+namespace Shop.ViewModels
 {
-    //[Table("Produkty")]
-    public class Product : IEntity
+    public class CreateProductViewModel
     {
-        //[Key]
-        //public int ProductId { get; set; }
-
         [Required]
         [MaxLength(60), MinLength(3)]
-        //[Column("Nazwa")]
         public string Name { get; set; }
 
         [Required]
@@ -25,6 +20,6 @@ namespace Shop.Models
 
         public int CategoryId { get; set; }
 
-        public virtual ICollection<Review> Reviews { get; set; }
+        public IEnumerable<SelectListItem> Categories { get; set; }
     }
 }

@@ -13,16 +13,16 @@ namespace Shop.Controllers
         {
             IEnumerable<Category> model;
             if (!string.IsNullOrEmpty(search))
-            model = _db.Categories.Where(c => c.Name.Contains(search));
+                model = _db.Categories.Where(c => c.Name.Contains(search)).ToList();
             else
-                model = _db.Categories;
+                model = _db.Categories.ToList();
 
             var selectedCategories =
                 from c in _db.Categories
                 where c.Name.Length < 7
                 select c;
 
-            var selectedCategories2 = _db.Categories.Where( c => c.Name.Length < 7 && c.Id < 2).Take(10);
+            var selectedCategories2 = _db.Categories.Where(c => c.Name.Length < 7 && c.Id < 2).Take(10);
 
             var model2 = _db.Categories.ToList();
 

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Shop.Models;
+using Shop.ViewModels;
 
 namespace Shop.Controllers
 {
@@ -49,7 +50,9 @@ namespace Shop.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new CreateProductViewModel();
+            model.Categories = _db.Categories.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() });
+            return View(model);
         }
 
         // POST: Products/Create
@@ -57,7 +60,7 @@ namespace Shop.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price")] Product product)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,CategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
